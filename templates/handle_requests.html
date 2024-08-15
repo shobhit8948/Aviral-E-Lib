@@ -1,0 +1,40 @@
+{% extends 'basefor_admin.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Book Purchase Requests</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>User Email ID</th>
+                <th>Book ID</th>
+                <th>Book Title</th>
+                <th>Duration</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in purchase_requests %}
+            <tr>
+                <td>{{ request.user.id }}</td>
+                <td>{{ request.user.email }}</td>
+                <td>{{ request.book.id }}</td>
+                <td>{{ request.book.title }}</td>
+                <td>{{ request.duration }} Days</td>
+                <td>₹{{ request.price }}</td>>
+                <td>
+                    <form action="{{ url_for('handle_purchase_request', request_id=request.id) }}" method="post">
+                        <button type="submit" name="action" value="grant" class="btn btn-success"><i class="fas fa-check"></i></button>
+                        <button type="submit" name="action" value="reject" class="btn btn-danger"><i class="fas fa-times"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+{% endblock %}

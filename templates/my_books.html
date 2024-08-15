@@ -1,0 +1,25 @@
+{% extends 'basefor_user.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">My Books</h2>
+    <div class="row">
+        {% for book in user.purchased_books %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ url_for('static', filename=book.image) }}" class="card-img-top" alt="{{ book.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">Author: {{ book.author }}</p>
+                    <p class="card-text">Section: {{ book.section.section_name }}</p>
+                    <p class="card-text">Access Start Date: {{ book.access_start_datetime }}</p>
+                    <p class="card-text">Access End Date: {{ book.access_end_datetime }}</p>
+                    <p class="card-text">Remaining Time: {{ book.remaining_time }}</p>
+                    <a href="{{ url_for('static', filename=book.pdf.replace('\\', '/')) }}" target="_blank" class="btn btn-primary">Read E-Book</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

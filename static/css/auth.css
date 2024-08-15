@@ -1,0 +1,18 @@
+body {
+  background-image: url('/static/images/background.jpg'); /* Path to your background image */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+/* Media query for mobile devices */
+@media only screen and (max-width: 600px) {
+  .body-background {
+      background-size: auto; /* Adjust background size for mobile */
+  }
+}
+
+.card {
+  background-color: transparent; /* Make the card background transparent */
+  background-color: rgba(0, 0, 0, 0.377); 
+  color: #fff;
+}

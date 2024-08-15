@@ -1,0 +1,33 @@
+{% extends 'basefor_user.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Search Results</h2>
+    <p>Showing results for <strong>{{ search_value }}</strong> in <strong>{{ search_criteria }}</strong></p>
+    <div class="row">
+        {% if books %}
+            {% for book in books %}
+                <div class="col-md-3">
+                    <div class="card mb-3">
+                        <img src="{{ url_for('static', filename=book.image.replace('\\', '/')) }}" class="card-img-top" alt="{{ book.title }}" style="height: 200px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ book.title }}</h5>
+                            <p class="card-text mb-1">Author: {{ book.author }}</p>
+                            <p class="card-text mb-1">Section: {{ book.section.section_name }}</p>
+                            <p class="card-title mb-1">Price: {{ book.price_per_day }}</p>
+                            <form action="{{ url_for('purchase') }}" method="post">
+                                <input type="hidden" name="book_id" value="{{ book.id }}">
+                                <button type="submit" class="btn btn-success btn-sm mt-1">Buy E-Book <i class="fas fa-shopping-cart"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col">
+                <p>No results found.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

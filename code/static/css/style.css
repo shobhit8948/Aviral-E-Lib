@@ -1,0 +1,21 @@
+.card {
+    background-color: transparent; /* Make the card background transparent */
+    background-color: rgba(0, 0, 0, 0.377); 
+    color: #fff;
+  }
+.custom-card-img {
+    height: 200px; /* Adjust height as needed */
+    width: 100%; /* Set width to 100% to maintain aspect ratio */
+    object-fit: cover; /* Maintain image aspect ratio and fill the container */
+}
+.description {
+  max-height: 100px; /* Set the maximum height */
+  overflow: hidden; /* Hide overflowing content */
+  width: 200px; /* Set the width */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+.custom-image-container img {
+  width: 180px; /* Set the width to 100% */
+  height: 250px; /* Set the fixed height */
+  object-fit: cover; /* Cover the container with the image */
+}

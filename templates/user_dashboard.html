@@ -1,0 +1,76 @@
+{% extends 'basefor_user.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row pb-2">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>All Sections</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% for section in sections %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card">
+                <img src="{{ url_for('static', filename=section.image.replace('\\', '/')) }}" class="card-img-top custom-card-img" alt="{{ section.section_name }}" style="object-fit: cover; height: 200px;">
+
+                <div class="card-body">
+                    <h5 class="card-title mb-1">{{ section.section_name }}</h5>
+                    <p class="card-text mb-1">Date Created: {{ section.date_created.strftime('%Y-%m-%d') }}</p>
+                    <p class="card-text mb-1 description">{{ section.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ url_for('user_section_books', section_id=section.id) }}" class="btn btn-primary">View Books</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+<div class="container">
+    <div class="row pb-2">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Newly Added Books</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Newly Added Books</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Content</th>
+                    <th>Section</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in latest_books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.content }}</td>
+                    <td><a href="{{ url_for('user_section_books', section_id=book.section_id) }}" class="btn btn-primary">{{ book.section.section_name }}</a></td>
+                    <td>₹{{ book.price_per_day }}</td>
+                    <td>
+                        <form action="{{ url_for('purchase') }}" method="post">
+                            <input type="hidden" name="book_id" value="{{ book.id }}">
+                            <button type="submit" class="btn btn-success btn-sm mt-1">Buy E-Book <i class="fas fa-shopping-cart"></i></button>
+                        </form>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

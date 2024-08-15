@@ -1,0 +1,33 @@
+{% extends 'baseforauth.html' %}
+
+{% block link_css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/auth.css')}}">   
+{% endblock link_css %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <div class="card card-overlay">
+                <div class="card-body py-4">
+                    <div style="padding-left: 38%;">
+                        <img src="{{ url_for('static', filename='images/logo1.png')}}" alt="Logo" height=40% width=40%>
+                    </div>
+                    <h1 class="card-title text-center">Login Here</h1>
+                    <form class="back" action="/" method="POST">
+                        <div class="form-group mb-3">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    </form>
+                    <p class="text-center mt-3 mb-0">Don't have an account? <a href="/register">Register here</a></p>
+                    <p class="text-center mb-0">Are you a librarian? <a href="/librarianlogin">Librarian login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

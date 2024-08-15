@@ -1,0 +1,37 @@
+{% extends 'basefor_user.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Confirm Purchase</h2><hr>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ url_for('static', filename=book.image.replace('\\', '/')) }}" alt="{{ book.title }}" class="img-fluid" style="max-width: 200px; max-height: 250px;">
+        </div>
+        <div class="col-md-8">
+            <h3>{{ book.title }}</h3>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>Price per Day:</strong> ₹{{ book.price_per_day }}</p>
+            <form id="purchaseForm" action="{{ url_for('send_request_to_librarian') }}" method="post">
+                <select id="durationSelect" class="form-control" name="duration">
+                    <option>Select Number of Days</option>
+                    <option value="7">7 Days</option>
+                    <option value="14">14 Days</option>
+                    <option value="28">28 Days</option>
+                    <option value="180">180 Days</option>
+                    <option value="365">365 Days</option>
+                </select>
+                <input type="hidden" name="book_id" value="{{ book.id }}">
+                <p><strong>Calculated Price:</strong> ₹<span id="calculatedPrice">{{ book.price_per_day }}</span></p>
+                <button type="submit" class="btn btn-primary">Confirm Purchase</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('durationSelect').addEventListener('change', function() {
+        var duration = parseInt(this.value);
+        var pricePerDay = parseInt('{{ book.price_per_day }}');
+        var totalPrice = duration * pricePerDay;
+        document.getElementById('calculatedPrice').textContent = totalPrice;
+    });
+</script>
+{% endblock %}

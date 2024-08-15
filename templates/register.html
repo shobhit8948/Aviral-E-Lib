@@ -1,0 +1,70 @@
+<!-- register.html -->
+{% extends 'baseforauth.html' %}
+
+{% block link_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock link_css %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5">
+            <div class="card card-overlay mt-3">
+                <div class="card-body py-4">
+                    <div style="padding-left: 38%;">
+                        <img src="{{ url_for('static', filename='images/logo1.png')}}" alt="Logo" height="40%" width="40%">
+                    </div>
+                    <h1 class="card-title text-center">Register Here</h1>
+                    <form class="back" id="register-form" action="/register" method="POST" onsubmit="return validateForm()">
+                        <div class="form-group mb-1">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                            <small class="form-text ">Please enter your full name.</small>
+                        </div>
+                        <div class="form-group mb-1">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            <small class="form-text">Please enter a valid email address.</small>
+                        </div>
+                        <div class="form-group mb-1">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone" pattern="[0-9]{10}" required>
+                            <small class="form-text">Please enter a valid 10-digit phone number.</small>
+                        </div>
+                        <div class="form-group mb-1">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                            <small class="form-text">Please enter a password.</small>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </form>
+                    <p class="text-center mt-3 mb-0">Already have an account? <a href="/">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var phone = document.getElementById("phone").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        if (name.trim() == "") {
+            alert("Please enter your name.");
+            return false;
+        }
+        if (!phone.match(/^\d{10}$/)) {
+            alert("Please enter a valid 10-digit phone number.");
+            return false;
+        }
+        if (!isValidEmail(email)) {
+            alert("Please enter a valid email address.");
+            return false;
+        }
+        return true;
+    }
+    function isValidEmail(email) {
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+</script>
+{% endblock content %}
